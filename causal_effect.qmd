@@ -7,6 +7,10 @@ format: html
 #| label: setup
 library(tidyverse)
 library(primer.data)
+library(brms)
+library(tidybayes)
+library(gtsummary)
+
 ```
 
 ```{r}
@@ -33,7 +37,18 @@ scale_y_continuous(breaks=c(0,1),labels=c("No","Yes"))+
 labs(title="Civic Engagement and Voting Behavior",y="Voted in 2006 Primary Election",x="Civic Engagement")
 ```
 
+```{r}
+#| label: model
+#| cache: true
 
-We are using data from a postcard mailers study from the 2006 primary election in Michigan to attempt to forecast the causal effect of postcard mailers on voter participation in the Texas gubernatorial general election. One problem which may cast doubt on our approach is the difference in electorate between Michigan and Texas.
+fit_postcard_vote<-brm(formula = voted ~ age_z + sex + treatment + voter_class + treatment*voter_class, data = ch10_data, family = gaussian(), refresh = 0, silent = 2, seed = 19)
+```
 
+```{r}
+fit_postcard_vote |>
+tbl_regression(intercept=TRUE,estimate_fun = function(x) style_sigfig(x, digits = 3))
+```
+
+$$y_{i} = \beta_{0} + \beta_{1} age\_z + \beta_{2}male_i + \beta_{3}civic\_duty_i + \\ \beta_{4}hawthorne_i + \beta_{5}self_i + \beta_{6}neighbors_i + \\ \beta_{7}Sometimes\ vote_i + \beta_{8}Always\ vote_i + \\ \beta_{9}civic\_duty_i Sometimes\ vote_i + \beta_{10}hawthorne_i Sometimes\ vote_i + \\ \beta_{11}self_i Sometimes\ vote_i + \beta_{11}neighbors_i Sometimes\ vote_i + \\ \beta_{12}civic\_duty_i Always\ vote_i + \beta_{13}hawthorne_i Always\ vote_i + \\ \beta_{14}self_i Always\ vote_i + \beta_{15}neighbors_i Always\ vote_i + \epsilon_{i}$$
+We are using data from a postcard mailers study from the 2006 primary election in Michigan to attempt to forecast the causal effect of postcard mailers on voter participation in the Texas gubernatorial general election. One problem which may cast doubt on our approach is the difference in electorate between Michigan and Texas. We are using a linear model with error terms on the dependent variable of whether someone has voted. Our model predicts a positive relationship between age and likelihood to vote.
 
