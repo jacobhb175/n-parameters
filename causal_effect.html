@@ -189,14 +189,16 @@ The following objects are masked from 'package:brms':
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="causal_effect_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="causal_effect_files/figure-html/plot-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>We are using data from a postcard mailers study from the 2006 primary election in Michigan to attempt to forecast the causal effect of postcard mailers on voter participation in the Texas gubernatorial general election. One problem which may cast doubt on our approach is the difference in electorate between Michigan and Texas. We are using a linear model with error terms on the dependent variable of whether someone has voted. Our model predicts a positive relationship between age and likelihood to vote. One QoI is the correlation between receiving a postcard about neighbors and voting, which has a correlation of 8.4%, with a confidence interval between 4.1% and 12.5%.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit_postcard_vote<span class="ot">&lt;-</span><span class="fu">brm</span>(<span class="at">formula =</span> voted <span class="sc">~</span> age_z <span class="sc">+</span> sex <span class="sc">+</span> treatment <span class="sc">+</span> voter_class <span class="sc">+</span> treatment<span class="sc">*</span>voter_class, <span class="at">data =</span> ch10_data, <span class="at">family =</span> <span class="fu">gaussian</span>(), <span class="at">refresh =</span> <span class="dv">0</span>, <span class="at">silent =</span> <span class="dv">2</span>, <span class="at">seed =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><span class="math display">\[y_{i} = \beta_{0} + \beta_{1} age\_z + \beta_{2}male_i + \beta_{3}civic\_duty_i + \\ \beta_{4}hawthorne_i + \beta_{5}self_i + \beta_{6}neighbors_i + \\ \beta_{7}Sometimes\ vote_i + \beta_{8}Always\ vote_i + \\ \beta_{9}civic\_duty_i Sometimes\ vote_i + \beta_{10}hawthorne_i Sometimes\ vote_i + \\ \beta_{11}self_i Sometimes\ vote_i + \beta_{11}neighbors_i Sometimes\ vote_i + \\ \beta_{12}civic\_duty_i Always\ vote_i + \beta_{13}hawthorne_i Always\ vote_i + \\ \beta_{14}self_i Always\ vote_i + \beta_{15}neighbors_i Always\ vote_i + \epsilon_{i}\]</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fit_postcard_vote <span class="sc">|&gt;</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_regression</span>(<span class="at">intercept=</span><span class="cn">TRUE</span>,<span class="at">estimate_fun =</span> <span class="cf">function</span>(x) <span class="fu">style_sigfig</span>(x, <span class="at">digits =</span> <span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -810,7 +812,6 @@ contain underscores: term naming may be unreliable!</code></pre>
 </div>
 </div>
 </div>
-<p><span class="math display">\[y_{i} = \beta_{0} + \beta_{1} age\_z + \beta_{2}male_i + \beta_{3}civic\_duty_i + \\ \beta_{4}hawthorne_i + \beta_{5}self_i + \beta_{6}neighbors_i + \\ \beta_{7}Sometimes\ vote_i + \beta_{8}Always\ vote_i + \\ \beta_{9}civic\_duty_i Sometimes\ vote_i + \beta_{10}hawthorne_i Sometimes\ vote_i + \\ \beta_{11}self_i Sometimes\ vote_i + \beta_{11}neighbors_i Sometimes\ vote_i + \\ \beta_{12}civic\_duty_i Always\ vote_i + \beta_{13}hawthorne_i Always\ vote_i + \\ \beta_{14}self_i Always\ vote_i + \beta_{15}neighbors_i Always\ vote_i + \epsilon_{i}\]</span> We are using data from a postcard mailers study from the 2006 primary election in Michigan to attempt to forecast the causal effect of postcard mailers on voter participation in the Texas gubernatorial general election. One problem which may cast doubt on our approach is the difference in electorate between Michigan and Texas. We are using a linear model with error terms on the dependent variable of whether someone has voted. Our model predicts a positive relationship between age and likelihood to vote.</p>
 
 </main>
 <!-- /main column -->
