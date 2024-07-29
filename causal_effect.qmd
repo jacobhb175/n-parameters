@@ -34,4 +34,6 @@ labs(title="Civic Engagement and Voting Behavior",y="Voted in 2006 Primary Elect
 ```
 
 
+We are using data from a postcard mailers study from the 2006 primary election in Michigan to attempt to forecast the causal effect of postcard mailers on voter participation in the Texas gubernatorial general election. One problem which may cast doubt on our approach is the difference in electorate between Michigan and Texas.
+
 
